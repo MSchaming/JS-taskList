@@ -110,7 +110,4 @@ function filterTasks(e){
 }
 
 
-// Remember that forEach();  requires an iterator, in this case Brad decided to call this iterator task , but it can be called whatever you want.
-
-// The iterator is just a name you give to every top level element the array has. In this case is a node list, which functions similarly to an array. This node list is created by pulling the data using .querySelectorAll('.collection-item') , and then we execute the unnamed function on each of the top level items of the node list.
 
