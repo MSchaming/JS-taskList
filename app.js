@@ -17,6 +17,12 @@ loadEventListeners();
 function loadEventListeners(){
     //Add task event
     form.addEventListener('submit', addTask);
+    //Remove task even
+    taskList.addEventListener('click', removeTask);
+    //Clear all task events
+    clearBtn.addEventListener('click', clearTasks);
+    //Filter tasks event
+    filter.addEventListener('keyup', filterTasks);
 
 }
 
@@ -49,12 +55,62 @@ function addTask(e){
     //Clear the input
     taskInput.value = '';
 
-    console.log(li);
+    // console.log(li);
     e.preventDefault(); //method of event object
 }
 
 
 
+//Remove Task Handler
+
+function removeTask(e){
+    if(e.target.parentElement.classList.contains('delete-item')){
+        if(confirm('Are you sure?')){
+            e.target.parentElement.parentElement.remove();
+        }
+             
+        }
+}
 
 
+
+//Clear all Tasks
+
+function clearTasks(){
+   //option a
+//    taskList.innerHTML = "";
+    
+//Faster, option B
+while(taskList.firstChild) {
+    taskList.removeChild(taskList.firstChild);
+}
+
+
+//while ul taskList has a first child(the li) we will remove the child, taskLit.firstChild (li)
+
+//https://jsperf.com/innerhtml-vs-removechild/47
+
+}
+
+//Filter Tasks
+function filterTasks(e){
+    const text = e.target.value.toLowerCase();
+
+    document.querySelectorAll('.collection-item').forEach(
+        function(task){
+            const item = task.firstChild.textContent;
+            if(item.toLowerCase().indexOf(text) != -1){
+                task.style.display = 'block';
+            } else {
+                task.style.display = 'none';
+            } 
+        }
+    );
+    console.log(text);
+}
+
+
+// Remember that forEach();  requires an iterator, in this case Brad decided to call this iterator task , but it can be called whatever you want.
+
+// The iterator is just a name you give to every top level element the array has. In this case is a node list, which functions similarly to an array. This node list is created by pulling the data using .querySelectorAll('.collection-item') , and then we execute the unnamed function on each of the top level items of the node list.
 
